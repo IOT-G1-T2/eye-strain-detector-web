@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <!-- metas -->
+    <meta charset="utf-8">
+    <meta name="author" content="Chitrakoot Web" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="keywords" content="admin,dashboard" />
+    <meta name="description" content="Fabrex - Responsive Admin Dashboard Template" />
+
+    <!-- title  -->
+    <title>Fabrex - Responsive Admin Dashboard Template</title>
+
+    <!-- favicon -->
+    <link rel="shortcut icon" href="img/logos/favicon.png">
+
+    <!-- common plugins -->
+    <link rel="stylesheet" href="plugins/bootstrap/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="plugins/font-awesome/css/font-awesome.min.css" />
+    <link rel="stylesheet" href="plugins/icomoon/style.css" />
+    <link rel="stylesheet" href="plugins/uniform/css/default.css" />
+    <link rel="stylesheet" href="plugins/switchery/switchery.min.css" />
+
+    <!-- nvd3 plugin -->
+    <link rel="stylesheet" href="plugins/nvd3/nv.d3.min.css" />
+
+    <!-- custom css -->
+    <link rel="stylesheet" href="css/styles.css" />
+    <link rel="stylesheet" href="style.css" />
+
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.4/css/all.css">
+
+</head>
+
+<body>
+
+    <!-- start page loading -->
+    <div id="preloader">
+        <div class="row loader">
+            <div class="loader-icon"></div>
+        </div>
+    </div>
+    <!-- end page loading -->
+
+    <!-- start page container -->
+    <div class="page-container">
+        <!-- start page sidebar -->
+        <div class="page-sidebar">
+            <a class="logo-box" href="index.html">
+                <img src="img/logo-min.png">
+            </a>
+            <div class="page-sidebar-inner">
+                <div class="page-sidebar-menu">
+                    <ul class="accordion-menu">
+                        <li><a class="btn btn-black sidelink" href="www.github.com"> <span class="float-left"><i class="fab fa-github"></i> </span>Github Repo</span></a></li>
+                        <li><a class="btn btn-story sidelink" href="www.github.com"> <span class="float-left"><i class="fas fa-video"></i> </span>The Story Video</span></a></li>
+                        <li><a class="btn btn-blog sidelink" href="www.github.com"> <span class="float-left"><i class="fas fa-sticky-note"></i> </span>The Blog</span></a></li>
+                        <li>
+                            <ul>
+                                <li><a href="form-elements.html">Elements</a></li>
+                                <li><a href="form-wizard.html">Form Wizard</a></li>
+                                <li><a href="form-file-upload.html">File Upload</a></li>
+                                <li><a href="form-image-crop.html">Image Crop</a></li>
+                                <li><a href="form-image-zoom.html">Image Zoom</a></li>
+                            </ul>
+                        </li>
+                        <li>
+                            <a href="https://www.b9077f2e76454af2ba6671215f63b057.s2.eu.hivemq.cloud"><i class="fas fa-lock"></i> <span> Host:</span><span class="label label-success">b9077f2e76454a...</span><br></a>
+                            <a href="/#"><i class="fas fa-link"></i> <span> Port No:</span><span class="label label-success">8883</span><br></a>
+                            <a href="/#"><i class="fas fa-pen"></i> <span> Topic:</span><span class="label label-success">IOT-G1-T2</span><br></a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <!-- end page sidebar -->
+
+        <!-- start page content -->
+        <div class="page-content">
+            <!-- start page inner -->
+            <div class="page-inner">
+                <!-- <div class="page-title">
+                    <h3 class="breadcrumb-header">[logo + team name]</h3><br>
+                    <img class="header-logo" src="img/logo.png">
+                </div> -->
+                <!-- start page main wrapper -->
+                <div id="main-wrapper">
+                    <div class="row">
+                        <div class="col">
+                            <div class="card card-healthy stats-widget">
+                                <div class="card-body">
+                                    <div class="float-left">
+                                        <span class="stats-number">All Good!</span>
+                                        <p class="stats-info">Keep it up! Your blink rate is within the acceptable range.</p>
+                                    </div>
+                                    <div class="float-right">
+                                        <i class="fas fa-tasks stats-icon text-success"></i>
+                                    </div>
+                                    <div class="clearfix"></div>
+                                    <div class="progress mb-0 mt-3">
+                                        <div class="progress-bar bg-success" role="progressbar" aria-valuenow="58" aria-valuemin="0" aria-valuemax="100" style="width: 58%;">
+                                            <span class="sr-only">58% Complete</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-xl-4 col-lg-6 col-md-6">
+                            <div class="card card-white stats-widget">
+                                <div class="card-body">
+                                    <div class="float-left">
+                                        <span class="stats-number">60</span>
+                                        <p class="stats-info">blinks per minute</p>
+                                    </div>
+                                    <div class="float-right">
+                                        <i class="fas fa-dollar-sign text-primary stats-icon"></i>
+                                    </div>
+                                    <div class="clearfix"></div>
+                                    <div class="progress mb-0 mt-3">
+                                        <div class="progress-bar bg-primary" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width: 60%;">
+                                            <span class="sr-only">60% Complete</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-xl-4 col-lg-6 col-md-6">
+                            <div class="card card-white stats-widget">
+                                <div class="card-body">
+                                    <div class="float-left">
+                                        <span class="stats-number">300</span>
+                                        <p class="stats-info">blinks in total</p>
+                                    </div>
+                                    <div class="float-right">
+                                        <i class="fas fa-download stats-icon text-danger"></i>
+                                    </div>
+                                    <div class="clearfix"></div>
+                                    <div class="progress mb-0 mt-3">
+                                        <div class="progress-bar bg-danger" role="progressbar" aria-valuenow="20" aria-valuemin="0" aria-valuemax="100" style="width: 20%;">
+                                            <span class="sr-only">20% Complete</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-xl-4 col-lg-6 col-md-6">
+                            <div class="card card-white stats-widget">
+                                <div class="card-body">
+                                    <div class="float-left">
+                                        <span class="stats-number">5</span>
+                                        <p class="stats-info">minutes</p>
+                                    </div>
+                                    <div class="float-right">
+                                        <i class="fas fa-user-plus stats-icon text-warning"></i>
+                                    </div>
+                                    <div class="clearfix"></div>
+                                    <div class="progress mb-0 mt-3">
+                                        <div class="progress-bar bg-warning" role="progressbar" aria-valuenow="40" aria-valuemin="0" aria-valuemax="100" style="width: 40%;">
+                                            <span class="sr-only">40% Complete</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Row -->
+                    <div class="row">
+                        <div class="col-lg-8 col-md-12">
+                            <div class="card card-white">
+                                <div class="card-heading clearfix">
+                                    <h4 class="card-title">Your Eye Health Summary</h4>
+                                </div>
+                                <div class="card-body">
+                                    <div id="chart1">
+                                        <svg></svg>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-4 col-md-12">
+                            <div class="card card-white">
+                                <div class="card-heading clearfix">
+                                    <h4 class="card-title">Features</h4>
+                                </div>
+                                <div class="card-body">
+                                    <div class="project-stats">
+                                        <ul class="list-unstyled">
+                                            <li>Blink Rate<span class="label label-success float-right">Finished</span></li>
+                                            <li>Break Reminder<span class="label label-warning float-right">Pending</span></li>
+                                            <li>Hello<span class="label label-success float-right">Finished</span></li>
+                                            <li>Software UI<span class="label label-danger float-right">Not Done</span></li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Row -->
+                    
+                </div>
+                <!-- end page main wrapper -->
+                <div class="page-footer">
+                    <p>Copyright &copy; 2023 IOT-G1-T2. Sponsored by [Organization Here].</p>
+                </div>
+            </div>
+        </div>
+        <!-- end page content -->
+    </div>
+    <!-- end page container -->
+
+    <!-- all js include start -->
+
+    <!-- jQuery -->
+    <script src="plugins/jquery/jquery-3.1.0.min.js"></script>
+
+    <!-- bootstrap -->
+    <script src="plugins/bootstrap/js/bootstrap.min.js"></script>
+
+    <!-- slimscroll -->
+    <script src="plugins/jquery-slimscroll/jquery.slimscroll.min.js"></script>
+
+    <!-- uniform -->
+    <script src="plugins/uniform/js/jquery.uniform.standalone.js"></script>
+
+    <!-- switchery -->
+    <script src="plugins/switchery/switchery.min.js"></script>
+
+    <!-- chartjs -->
+    <script src='plugins/chartjs/chart.min.js'></script>
+
+    <!-- d3.min -->
+    <script src="plugins/d3/d3.min.js"></script>
+
+    <!-- nv.d3.min -->
+    <script src="plugins/nvd3/nv.d3.min.js"></script>
+
+    <!-- float chart -->
+    <script src="plugins/flot/jquery.flot.min.js"></script>
+
+    <!-- float time -->
+    <script src="plugins/flot/jquery.flot.time.min.js"></script>
+
+    <!-- float symbol -->
+    <script src="plugins/flot/jquery.flot.symbol.min.js"></script>
+
+    <!-- float resize -->
+    <script src="plugins/flot/jquery.flot.resize.min.js"></script>
+
+    <!-- float tooltip -->
+    <script src="plugins/flot/jquery.flot.tooltip.min.js"></script>
+
+    <!-- float pie -->
+    <script src="plugins/flot/jquery.flot.pie.min.js"></script>
+
+    <!-- float pie -->
+    <script src="js/pages/dashboard.js"></script>
+
+    <!-- custom scripts -->
+    <script src="js/main.js"></script>
+
+    <!-- all js include end -->
+
+</body>
+
+</html>
