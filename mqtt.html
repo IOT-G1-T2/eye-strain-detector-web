@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <title>MQTT Debugging</title>
+  <script src="https://unpkg.com/mqtt/dist/mqtt.min.js"></script>
+</head>
+
+<body>
+
+<script>
+
+const subcr = {
+  username: 'iot-eye-subscriber', //subscriber
+  password: 'eye00tea'
+};
+
+const pubcr = {
+  username: 'iot-eye-publisher', 
+  password: 'eye00tea'
+};
+
+let pub = mqtt.connect('tls://b9077f2e76454af2ba6671215f63b057.s2.eu.hivemq.cloud:8883',pubcr);
+let sub = mqtt.connect('tls://b9077f2e76454af2ba6671215f63b057.s2.eu.hivemq.cloud:8883',subcr);
+let topic = "iot-cam-data"
+
+sub.subscribe(topic);
+
+// for publishing, hide for now
+// setInterval(() => {
+//   const time = Date.now().toString();
+//   pub.publish(topic, metric);
+// }, 1000);
+
+sub.on('message', function (topic, message) {
+  console.log(message.toString());
+});
+
+setInterval(() => {
+  sub.end();
+  pub.end();
+}, 20000);
+
+</script>
+
+</body>
+
+</html>
+

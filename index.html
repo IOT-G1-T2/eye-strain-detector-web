@@ -32,185 +32,340 @@
 
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.4/css/all.css">
 
+    <!-- MQTT script -->
+    <script src="https://unpkg.com/mqtt/dist/mqtt.min.js"></script>
+
+    <!-- Vue.js -->
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+
+    <!-- Chart.js -->
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.3/Chart.bundle.js"></script>
+
+
 </head>
 
 <body>
+    <div id=app>
 
-    <!-- start page loading -->
-    <div id="preloader">
-        <div class="row loader">
-            <div class="loader-icon"></div>
-        </div>
-    </div>
-    <!-- end page loading -->
-
-    <!-- start page container -->
-    <div class="page-container">
-        <!-- start page sidebar -->
-        <div class="page-sidebar">
-            <a class="logo-box" href="index.html">
-                <img src="img/logo-min.png">
-            </a>
-            <div class="page-sidebar-inner">
-                <div class="page-sidebar-menu">
-                    <ul class="accordion-menu">
-                        <li><a class="btn btn-black sidelink" href="www.github.com"> <span class="float-left"><i class="fab fa-github"></i> </span>Github Repo</span></a></li>
-                        <li><a class="btn btn-story sidelink" href="www.github.com"> <span class="float-left"><i class="fas fa-video"></i> </span>The Story Video</span></a></li>
-                        <li><a class="btn btn-blog sidelink" href="www.github.com"> <span class="float-left"><i class="fas fa-sticky-note"></i> </span>The Blog</span></a></li>
-                        <!-- <li>
-                            <ul>
-                                <li><a href="form-elements.html">Elements</a></li>
-                                <li><a href="form-wizard.html">Form Wizard</a></li>
-                                <li><a href="form-file-upload.html">File Upload</a></li>
-                                <li><a href="form-image-crop.html">Image Crop</a></li>
-                                <li><a href="form-image-zoom.html">Image Zoom</a></li>
-                            </ul>
-                        </li> -->
-                        <li>
-                            <a href="https://www.b9077f2e76454af2ba6671215f63b057.s2.eu.hivemq.cloud"><i class="fas fa-lock"></i> <span> Host:</span><span class="label label-success">b9077f2e76454a...</span><br></a>
-                            <a href="/#"><i class="fas fa-link"></i> <span> Port No:</span><span class="label label-success">8883</span><br></a>
-                            <a href="/#"><i class="fas fa-pen"></i> <span> Topic:</span><span class="label label-success">IOT-G1-T2</span><br></a>
-                        </li>
-                    </ul>
-                </div>
+        <!-- start page loading -->
+        <div id="preloader">
+            <div class="row loader">
+                <div class="loader-icon"></div>
             </div>
         </div>
-        <!-- end page sidebar -->
+        <!-- end page loading -->
 
-        <!-- start page content -->
-        <div class="page-content">
-            <!-- start page inner -->
-            <div class="page-inner">
-                <!-- <div class="page-title">
+        <!-- start page container -->
+        <div class="page-container">
+            <!-- start page sidebar -->
+            <div class="page-sidebar">
+                <a class="logo-box" href="index.html">
+                    <img src="img/logo-min.png">
+                </a>
+                <div class="page-sidebar-inner">
+                    <div class="page-sidebar-menu">
+                        <ul class="accordion-menu">
+                            <li><a class="btn btn-black sidelink" href="www.github.com"> <span class="float-left"><i
+                                            class="fab fa-github"></i> </span>Github Repo</span></a></li>
+                            <li><a class="btn btn-story sidelink" href="www.github.com"> <span class="float-left"><i
+                                            class="fas fa-video"></i> </span>The Story Video</span></a></li>
+                            <li><a class="btn btn-blog sidelink" href="www.github.com"> <span class="float-left"><i
+                                            class="fas fa-sticky-note"></i> </span>The Blog</span></a></li>
+                            <li>
+
+                                <a href="/">
+                                    <div class="row">
+                                        <div class="col">
+                                            <i class="fas fa-lock"></i><span>&nbsp;&nbsp;Host:&nbsp;</span>
+                                        </div>
+                                        <div class="col">
+                                            <code class="label label-success">{{ hostTitle }}</code>
+                                        </div>
+                                    </div>
+                                </a>
+
+                                <a href="/">
+                                    <div class="row">
+                                        <div class="col">
+                                            <i class="fas fa-link"></i><span>&nbsp;&nbsp;Port No:&nbsp;</span>
+                                        </div>
+                                        <div class="col">
+                                            <code class="label label-success">{{ port }}</code>
+                                        </div>
+                                    </div>
+                                </a>
+
+                                <a href="/">
+                                    <div class="row">
+                                        <div class="col">
+                                            <i class="fas fa-lock"></i><span>&nbsp;&nbsp;Topic:&nbsp;</span>
+                                        </div>
+                                        <div class="col">
+                                            <code class="label label-success">{{ topic }}</code>
+                                        </div>
+                                    </div>
+                                </a>
+
+                                <br><br>
+
+                                <a href="/">
+                                    <div class="row">
+                                        <div class="col">
+                                            <span><i class="fas fa-pen-alt"></i></span>
+                                        </div>
+                                        <div class="col">
+                                            <code class="label label-info">{{ publisher }}</code>
+                                        </div>
+                                    </div>
+                                </a>
+
+                                <a href="/">
+                                    <div class="row">
+                                        <div class="col">
+                                            <span><i class="fas fa-book-reader"></i></span>
+                                        </div>
+                                        <div class="col">
+                                            <code class="label label-warning">{{ subscriber }}</code>
+                                        </div>
+                                    </div>
+                                </a>
+
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <!-- end page sidebar -->
+
+            <!-- start page content -->
+            <div class="page-content">
+                <!-- start page inner -->
+                <div class="page-inner">
+                    <!-- <div class="page-title">
                     <h3 class="breadcrumb-header">[logo + team name]</h3><br>
                     <img class="header-logo" src="img/logo.png">
                 </div> -->
-                <!-- start page main wrapper -->
-                <div id="main-wrapper">
-                    <div class="row">
-                        <div class="col">
-                            <div class="card card-healthy stats-widget">
-                                <div class="card-body">
-                                    <div class="float-left">
-                                        <span class="stats-number">All Good!</span>
-                                        <p class="stats-info">Keep it up! Your blink rate is within the acceptable range.</p>
+                    <!-- start page main wrapper -->
+                    <div id="main-wrapper">
+
+                        <!-- STATUS: NOT CONNECTED ------------------------------------------------------------------------------ -->
+                        <div v-show="zero" class="row">
+                            <div class="col">
+                                <div class="card card-inform stats-widget">
+                                    <div class="card-body">
+                                        <div class="float-left">
+                                            <span class="stats-number">You are not connected.</span>
+                                            <p class="stats-info">Status: 0</p>
+                                        </div>
+                                        <div class="float-right">
+                                            <i class="fas fa-sad-tear stats-icon text-info"></i>
+                                        </div>
+                                        <div class="clearfix"></div>
+                                        // TODO: add buttons.
+                                        <!-- <a class="button-primary" @click="start()">start</a>
+                                        <a class="button-primary" @click="stop()">pause</a>
+                                        <a class="button-primary" @click="reset()">reset</a> -->
                                     </div>
-                                    <div class="float-right">
-                                        <i class="fas fa-tasks stats-icon text-success"></i>
-                                    </div>
-                                    <div class="clearfix"></div>
-                                    <div class="progress mb-0 mt-3">
-                                        <div class="progress-bar bg-success" role="progressbar" aria-valuenow="58" aria-valuemin="0" aria-valuemax="100" style="width: 58%;">
-                                            <span class="sr-only">58% Complete</span>
+                                </div>
+
+
+                            </div>
+                        </div>
+
+                        <!-- STATUS: GREEN ------------------------------------------------------------------------------ -->
+                        <div v-show="one" class="row">
+                            <div class="col">
+                                <div class="card card-ok stats-widget">
+                                    <div class="card-body">
+                                        <div class="float-left">
+                                            <span class="stats-number">All Good!</span>
+                                            <p class="stats-info">Keep it up! Your blink rate is within the acceptable
+                                                range.</p>
+                                        </div>
+                                        <div class="float-right">
+                                            <i class="fas fa-thumbs-up stats-icon text-success"></i>
+                                        </div>
+                                        <div class="clearfix"></div>
+                                        <div class="progress mb-0 mt-3">
+                                            <div class="progress-bar bg-success" role="progressbar" aria-valuenow="58"
+                                                aria-valuemin="0" aria-valuemax="100" style="width: 58%;">
+                                                <span class="sr-only">58% Complete</span>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
+
+                        <!-- STATUS: YELLOW ------------------------------------------------------------------------------ -->
+                        <div v-show="two" class="row">
+                            <div class="col">
+                                <div class="card card-notice stats-widget">
+                                    <div class="card-body">
+                                        <div class="float-left">
+                                            <span class="stats-number">Take a break soon!</span>
+                                            <p class="stats-info">Your blink rate is within the acceptable range, but
+                                                you may need to rest your eyes soon.</p>
+                                        </div>
+                                        <div class="float-right">
+                                            <i class="fas fa-exclamation-circle stats-icon text-warning"></i>
+                                        </div>
+                                        <div class="clearfix"></div>
+                                        <div class="progress mb-0 mt-3">
+                                            <div class="progress-bar bg-success" role="progressbar" aria-valuenow="58"
+                                                aria-valuemin="0" aria-valuemax="100" style="width: 58%;">
+                                                <span class="sr-only">58% Complete</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- STATUS: RED ------------------------------------------------------------------------------ -->
+                        <div v-show="three" class="row">
+                            <div class="col">
+                                <div class="card card-warning stats-widget">
+                                    <div class="card-body">
+                                        <div class="float-left">
+                                            <span class="stats-number">Take a break!</span>
+                                            <p class="stats-info">Your blink rate is low. Rest your eyes for at least 20
+                                                seconds and avoid eye strain!</p>
+                                        </div>
+                                        <div class="float-right">
+                                            <i class="fas fa-eye stats-icon text-danger"></i>
+                                        </div>
+                                        <div class="clearfix"></div>
+                                        <div class="progress mb-0 mt-3">
+                                            <div class="progress-bar bg-success" role="progressbar" aria-valuenow="58"
+                                                aria-valuemin="0" aria-valuemax="100" style="width: 58%;">
+                                                <span class="sr-only">58% Complete</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+
+
+                        <div v-show="connected" class="row">
+
+                            <div class="col-xl-4 col-lg-6 col-md-6">
+                                <div class="card card-white stats-widget">
+                                    <div class="card-body">
+                                        <div class="float-left">
+                                            <span class="stats-number">{{ blink_rate }}</span>
+                                            <p class="stats-info">blinks per minute</p>
+                                        </div>
+                                        <div class="float-right">
+                                            <i class="fas fa-dollar-sign text-primary stats-icon"></i>
+                                        </div>
+                                        <div class="clearfix"></div>
+                                        <div class="progress mb-0 mt-3">
+                                            <div class="progress-bar bg-primary" role="progressbar" aria-valuenow="60"
+                                                aria-valuemin="0" aria-valuemax="100" style="width: 60%;">
+                                                <span class="sr-only">60% Complete</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-xl-4 col-lg-6 col-md-6">
+                                <div class="card card-white stats-widget">
+                                    <div class="card-body">
+                                        <div class="float-left">
+                                            <span class="stats-number">{{ total_blinks }}</span>
+                                            <p class="stats-info">blinks in total</p>
+                                        </div>
+                                        <div class="float-right">
+                                            <i class="fas fa-download stats-icon text-danger"></i>
+                                        </div>
+                                        <div class="clearfix"></div>
+                                        <div class="progress mb-0 mt-3">
+                                            <div class="progress-bar bg-danger" role="progressbar" aria-valuenow="20"
+                                                aria-valuemin="0" aria-valuemax="100" style="width: 20%;">
+                                                <span class="sr-only">20% Complete</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-xl-4 col-lg-6 col-md-6">
+                                <div class="card card-white stats-widget">
+                                    <div class="card-body">
+                                        <div class="float-left">
+                                            <span class="stats-number">{{ total_minutes }}</span>
+                                            <p class="stats-info">minutes</p>
+                                        </div>
+                                        <div class="float-right">
+                                            <i class="fas fa-user-plus stats-icon text-warning"></i>
+                                        </div>
+                                        <div class="clearfix"></div>
+                                        <div class="progress mb-0 mt-3">
+                                            <div class="progress-bar bg-warning" role="progressbar" aria-valuenow="40"
+                                                aria-valuemin="0" aria-valuemax="100" style="width: 40%;">
+                                                <span class="sr-only">40% Complete</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+
+                            <!-- CHART ELEMENT -->
+                            <div class="col-lg-8 col-md-12">
+                                <div class="card card-white">
+                                    <div class="card-heading clearfix">
+                                        <h4 class="card-title">Your Eye Health Summary</h4>
+                                    </div>
+                                    <div class="card-body chart-padding">
+                                        <div id="chart1">
+                                            <canvas id="eye-summary-chart"></canvas>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- FEATURES ELEMENT -->
+                            <div class="col-lg-4 col-md-12">
+                                <div class="card card-white">
+                                    <div class="card-heading clearfix">
+                                        <h4 class="card-title">Features</h4>
+                                    </div>
+                                    <div class="card-body">
+                                        <div class="project-stats">
+                                            <ul class="list-unstyled">
+                                                <li>Blink Rate<span
+                                                        class="label label-success float-right">Finished</span></li>
+                                                <li>Break Reminder<span
+                                                        class="label label-warning float-right">Pending</span></li>
+                                                <li>Hello<span class="label label-success float-right">Finished</span>
+                                                </li>
+                                                <li>Software UI<span class="label label-danger float-right">Not
+                                                        Done</span></li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Row -->
+
                     </div>
-                    <div class="row">
-                        <div class="col-xl-4 col-lg-6 col-md-6">
-                            <div class="card card-white stats-widget">
-                                <div class="card-body">
-                                    <div class="float-left">
-                                        <span class="stats-number">60</span>
-                                        <p class="stats-info">blinks per minute</p>
-                                    </div>
-                                    <div class="float-right">
-                                        <i class="fas fa-dollar-sign text-primary stats-icon"></i>
-                                    </div>
-                                    <div class="clearfix"></div>
-                                    <div class="progress mb-0 mt-3">
-                                        <div class="progress-bar bg-primary" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width: 60%;">
-                                            <span class="sr-only">60% Complete</span>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-xl-4 col-lg-6 col-md-6">
-                            <div class="card card-white stats-widget">
-                                <div class="card-body">
-                                    <div class="float-left">
-                                        <span class="stats-number">300</span>
-                                        <p class="stats-info">blinks in total</p>
-                                    </div>
-                                    <div class="float-right">
-                                        <i class="fas fa-download stats-icon text-danger"></i>
-                                    </div>
-                                    <div class="clearfix"></div>
-                                    <div class="progress mb-0 mt-3">
-                                        <div class="progress-bar bg-danger" role="progressbar" aria-valuenow="20" aria-valuemin="0" aria-valuemax="100" style="width: 20%;">
-                                            <span class="sr-only">20% Complete</span>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-xl-4 col-lg-6 col-md-6">
-                            <div class="card card-white stats-widget">
-                                <div class="card-body">
-                                    <div class="float-left">
-                                        <span class="stats-number">5</span>
-                                        <p class="stats-info">minutes</p>
-                                    </div>
-                                    <div class="float-right">
-                                        <i class="fas fa-user-plus stats-icon text-warning"></i>
-                                    </div>
-                                    <div class="clearfix"></div>
-                                    <div class="progress mb-0 mt-3">
-                                        <div class="progress-bar bg-warning" role="progressbar" aria-valuenow="40" aria-valuemin="0" aria-valuemax="100" style="width: 40%;">
-                                            <span class="sr-only">40% Complete</span>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
+                    <!-- end page main wrapper -->
+                    <div class="page-footer">
+                        <p>Copyright &copy; 2023 IOT-G1-T2. Sponsored by [Organization Here].</p>
                     </div>
-                    <!-- Row -->
-                    <div class="row">
-                        <div class="col-lg-8 col-md-12">
-                            <div class="card card-white">
-                                <div class="card-heading clearfix">
-                                    <h4 class="card-title">Your Eye Health Summary</h4>
-                                </div>
-                                <div class="card-body">
-                                    <div id="chart1">
-                                        <svg></svg>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-lg-4 col-md-12">
-                            <div class="card card-white">
-                                <div class="card-heading clearfix">
-                                    <h4 class="card-title">Features</h4>
-                                </div>
-                                <div class="card-body">
-                                    <div class="project-stats">
-                                        <ul class="list-unstyled">
-                                            <li>Blink Rate<span class="label label-success float-right">Finished</span></li>
-                                            <li>Break Reminder<span class="label label-warning float-right">Pending</span></li>
-                                            <li>Hello<span class="label label-success float-right">Finished</span></li>
-                                            <li>Software UI<span class="label label-danger float-right">Not Done</span></li>
-                                        </ul>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <!-- Row -->
-                    
-                </div>
-                <!-- end page main wrapper -->
-                <div class="page-footer">
-                    <p>Copyright &copy; 2023 IOT-G1-T2. Sponsored by [Organization Here].</p>
                 </div>
             </div>
+            <!-- end page content -->
         </div>
-        <!-- end page content -->
+        <!-- end page container -->
     </div>
-    <!-- end page container -->
+
 
     <!-- all js include start -->
 
@@ -263,6 +418,224 @@
     <script src="js/main.js"></script>
 
     <!-- all js include end -->
+
+    <!-- VUE.JS ------------------------------------------------------------------------------ -->
+    <script>
+        // Vue.js
+        var app = new Vue({
+            el: '#app',
+            data() {
+                return {
+                    // mqtt things
+                    brokerUrl: 'b9077f2e76454af2ba6671215f63b057.s2.eu.hivemq.cloud',
+                    topic: 'iot-cam-data',
+
+                    // usernames
+                    publisher: 'iot-eye-publisher',
+                    p_password: 'eye00tea',
+
+                    subscriber: 'iot-eye-subscriber',
+                    s_password: 'eye00tea',
+
+                    pub: '',
+                    sub: '',
+
+                    // status
+                    zero: false,
+                    one: false,
+                    two: false,
+                    three: false,
+                    connected: false,
+
+                    // payload
+                    total_blinks: 0,
+                    total_minutes: 0,
+                    blink_rate: 0,
+
+                    // for chart.js
+                    dp_blink_rate: 0,
+                    dp_total_minutes: 0,
+                }
+            },
+            created() {
+
+                // if connected to mqtt successfully
+                // set status as 1 2 or 3
+
+                // replace with mqtt data
+                this.status = 4;
+
+                switch (this.status) {
+                    case 1:
+                        this.zero = false
+                        this.one = true // 1
+                        this.two = false
+                        this.three = false
+                        break;
+                    case 2:
+                        this.zero = false
+                        this.one = false
+                        this.two = true // 2
+                        this.three = false
+                        break;
+                    case 3:
+                        this.zero = false
+                        this.one = false
+                        this.two = false
+                        this.three = true // 3
+                        break;
+                    default: // any number / null
+                        this.zero = true
+                        this.one = false
+                        this.two = false
+                        this.three = false
+                }
+
+                // payload: 
+                this.total_blinks = 30
+                this.total_minutes = 2
+                this.blink_rate = 15
+            },
+
+            mounted() {
+                // MQTT
+                // this.pub = mqtt.connect(this.brokerUrl); //no need to publish for now
+                this.sub = mqtt.connect(this.brokerUrl);
+                this.sub.subscribe(this.topic);
+            },
+
+            methods: {
+                start() {
+                    //click start button
+                    this.sub.on('message', function (topic, message) {
+
+                        message = '30-2-15-1' // TODO: mockup only, remove on prod
+
+                        payload_data = JSON.parse(message.toString())
+                        var data = payload_data.split("-");
+
+                        //splice and parse payload
+                        p_blinks = parseInt(data[0]);
+                        p_minutes = parseInt(data[1]);
+                        p_blinkrate = parseInt(data[2]);
+                        this.status = parseInt(data[3]);
+
+                        // for chart.js
+                        app.dp_blink_rate = p_blinkrate;
+                        app.dp_total_minutes = p_minutes;
+                        slide(); // TODO: modify slide func
+                    });
+                    function send() {
+                        pubLoop = setInterval(() => {
+                            app.psn++
+                            pubTime = Date.now().toString();
+                            app.pubAmp = fluctuation(app.pubAmp)
+                            app.pubTem = fluctuation(app.pubTem)
+                            app.pubHum = fluctuation(app.pubHum)
+                        }, 1000); // 1 second
+                    };
+                    setTimeout(send, 1000); // wait for the sub.on done
+
+                },
+                //TODO: stop / pause button
+                stop() {
+                    clearInterval(pubLoop);
+                },
+                //TODO: reset button
+                reset() {
+                    this.blink_rate = this.total_minutes = 0;
+
+                    this.pub = mqtt.connect(this.brokerUrl);
+                    this.sub = mqtt.connect(this.brokerUrl);
+                    this.sub.subscribe(this.topic);
+
+                    // this.pubAmp = Math.floor(Math.random() * 10 + 1);
+                    // this.pubTem = Math.floor(Math.random() * 10 + 1);
+                    // this.pubHum = Math.floor(Math.random() * 10 + 1);
+
+                    resetChart();
+                }
+
+
+            }
+        })
+
+        // CHART.JS ------------------------------------------------------------------------------
+
+        // CHART.JS VARIABLES
+
+        // Chart.js
+        var chartColors = {
+            red: 'rgb(255, 99, 132)',
+            yellow: 'rgb(255, 205, 86)',
+            green: 'rgb(75, 192, 192)',
+            grey: 'rgb(201, 203, 207)'
+        };
+
+
+        var ctx = document.getElementById('eye-summary-chart').getContext('2d');
+        var chart = new Chart(ctx, {
+            type: 'line',
+            data: {
+                datasets: [{
+                    label: 'Blink Rate',
+                    borderColor: chartColors.red, //TODO: change line color based on status
+                    fill: false,
+                    data: []
+                }]
+            },
+            options: {
+                scales: {
+                    yAxes: [{
+                        display: true,
+                        ticks: {
+                            beginAtZero: true,
+                            steps: 10,
+                            stepValue: 5,
+                            suggestedMax: 50
+                        }
+                    }]
+                },
+                animation: {
+                },
+                legend: {
+                    position: 'bottom'
+                },
+            }
+        });
+
+        // INITIALIZE CHART
+        (function initChart() {
+            chart.data.labels = new Array(10).fill("0");
+            chart.data.datasets.forEach((dataset) => {
+                dataset.data = new Array(10).fill();
+            });
+            chart.update();
+        }());
+
+        // RESET CHART
+        function resetChart() {
+            chart.data.labels = new Array(10).fill("0");
+            chart.data.datasets.forEach((dataset) => {
+                dataset.data = new Array(10).fill();
+            });
+            chart.update();
+        };
+
+        // SLIDE CHART (MOVE)
+        function slide(PAYLOAD) {
+            chart.data.labels.push(PAYLOAD) // x-label units, increment every minute. (use seconds for demo purposes)
+            chart.data.datasets[0].data.push(PAYLOAD); // line data
+            //move chart when space is run out
+            if (chart.data.datasets[0].data.length > 10) {
+                chart.data.labels.shift();
+                chart.data.datasets.forEach((dataset) => {
+                    dataset.data.shift();
+                });
+            }
+            chart.update() //update chart
+        }
+    </script>
 
 </body>
 

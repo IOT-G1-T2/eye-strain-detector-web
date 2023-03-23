@@ -1,11 +1,21 @@
-.card-healthy {
+.card-ok {
     border-color: rgb(137, 218, 172);
     background-color: rgb(216, 241, 228);
 }
 
-.card-unhealthy {
+.card-notice {
+    border-color: rgb(233, 211, 89);
+    background-color:  rgb(252, 240, 173);
+}
+
+.card-warning {
     border-color: rgb(218, 137, 137);
-    background-color: rgb(250, 194, 194);
+    background-color: rgb(253, 211, 211);
+}
+
+.card-inform {
+    border-color: rgb(90, 220, 230);
+    background-color: rgb(185, 247, 252);
 }
 
 .sidelink {
@@ -45,4 +55,7 @@ background-color: rgb(235, 92, 92);
         background-color: rgb(16, 123, 223);
         color:azure;
         }
-        
+
+.chart-padding {
+    padding-bottom: 10px;
+}
