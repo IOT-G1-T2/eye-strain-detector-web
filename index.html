@@ -45,7 +45,7 @@
 </head>
 
 <body>
-    <div id=app>
+    <div id="app" style="height:100vh">
 
         <!-- start page loading -->
         <div id="preloader">
@@ -321,8 +321,8 @@
                                     <div class="card-heading clearfix">
                                         <h4 class="card-title">Your Eye Health Summary</h4>
                                     </div>
-                                    <div class="card-body chart-padding">
-                                        <div id="chart1">
+                                    <div class="card-body">
+                                        <div class="chart-wrapper">
                                             <canvas id="eye-summary-chart"></canvas>
                                         </div>
                                     </div>
@@ -585,6 +585,7 @@
                 }]
             },
             options: {
+                responsive: true,
                 scales: {
                     yAxes: [{
                         display: true,

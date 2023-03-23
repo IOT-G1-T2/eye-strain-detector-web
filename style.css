@@ -18,6 +18,12 @@
     background-color: rgb(185, 247, 252);
 }
 
+.chart-wrapper {
+    display: inline-block;
+    position: relative;
+    width: 100%;
+  }
+
 .sidelink {
     margin-bottom: 8px;
 }
