@@ -68,6 +68,8 @@
                 <div class="page-sidebar-inner">
                     <div class="page-sidebar-menu">
                         <ul class="accordion-menu">
+                            <li><a id="four" class="btn btn-black sidelink"> <span class="float-left"><i
+                                class="fas fa-link"></i> </span>You are connected!</span></a></li>
                             <li><a class="btn btn-black sidelink" href="www.github.com"> <span class="float-left"><i
                                             class="fab fa-github"></i> </span>Github Repo</span></a></li>
                             <li><a class="btn btn-story sidelink" href="www.github.com"> <span class="float-left"><i
@@ -146,9 +148,8 @@
                 <div class="page-inner">
                     <!-- start page main wrapper -->
                     <div id="main-wrapper">
-
                         <!-- STATUS: NOT CONNECTED ------------------------------------------------------------------------------ -->
-                        <div v-show="zero" class="row">
+                        <div id="zero" class="row">
                             <div class="col">
                                 <div class="card card-inform stats-widget">
                                     <div class="card-body">
@@ -165,7 +166,7 @@
                         </div>
 
                         <!-- STATUS: GREEN ------------------------------------------------------------------------------ -->
-                        <div v-show="one" class="row">
+                        <div id="one" class="row">
                             <div class="col">
                                 <div class="card card-ok stats-widget">
                                     <div class="card-body">
@@ -184,7 +185,7 @@
                         </div>
 
                         <!-- STATUS: YELLOW ------------------------------------------------------------------------------ -->
-                        <div v-show="two" class="row">
+                        <div id="two" class="row">
                             <div class="col">
                                 <div class="card card-notice stats-widget">
                                     <div class="card-body">
@@ -203,7 +204,7 @@
                         </div>
 
                         <!-- STATUS: RED ------------------------------------------------------------------------------ -->
-                        <div v-show="three" class="row">
+                        <div id="three" class="row">
                             <div class="col">
                                 <div class="card card-warning stats-widget">
                                     <div class="card-body">
@@ -376,11 +377,9 @@
         // SETUP HERE
         var mqtt;
         const reconnectTimeout = 2000;
-        const port = 8884;
+        const port = 8000;
         const host = 'broker.hivemq.com';
         const topic = 'eye-strain-detector-1';
-
-        var status = '0';
 
         // FUNCTIONS ------------------------------------------------------------------
 
@@ -411,7 +410,44 @@
             pblinkrate = parseInt(data[2]);
             pstatus = parseInt(data[3]);
 
-            status = toString(pstatus);
+            switch (pstatus) {
+                case 1:
+                    document.getElementById("zero").style.display = "none";
+                    document.getElementById("one").style.display = "block";
+                    document.getElementById("two").style.display = "none";
+                    document.getElementById("three").style.display = "none";
+                    document.getElementById("four").style.display = "block";
+
+                    break;
+                case 2:
+                    document.getElementById("zero").style.display = "none";
+                    document.getElementById("one").style.display = "none";
+                    document.getElementById("two").style.display = "block";
+                    document.getElementById("three").style.display = "none";
+                    document.getElementById("four").style.display = "block";
+                    break;
+                case 3:
+                    document.getElementById("zero").style.display = "none";
+                    document.getElementById("one").style.display = "none";
+                    document.getElementById("two").style.display = "none";
+                    document.getElementById("three").style.display = "block";
+                    document.getElementById("four").style.display = "block";
+                    break;
+                case 4:
+                    document.getElementById("zero").style.display = "none";
+                    document.getElementById("one").style.display = "none";
+                    document.getElementById("two").style.display = "none";
+                    document.getElementById("three").style.display = "none";
+                    document.getElementById("four").style.display = "block";
+                    break;
+                default:
+                    document.getElementById("zero").style.display = "block";
+                    document.getElementById("one").style.display = "none";
+                    document.getElementById("two").style.display = "none";
+                    document.getElementById("three").style.display = "none";
+                    document.getElementById("four").style.display = "none";
+                    break;
+            }
 
             document.getElementById("total_blinks_html").innerHTML = pblinks;
             document.getElementById("minutes_html").innerHTML = pminutes;
@@ -419,6 +455,7 @@
             document.getElementById("status_html").innerHTML = pstatus;
             console.log("blinks: " + pblinks + " minutes: " + pminutes + " blink rate: " + pblinkrate + " status: " + pstatus)
         }
+
 
 
         function onFailure(message) {
@@ -439,13 +476,20 @@
             // can add username, password etc.
             var options = {
                 timeout: 3,
-                useSSL:true,
+                // useSSL: true,
                 onSuccess: onConnect,
                 onFailure: onFailure,
             };
             mqtt.onMessageArrived = onMessageArrived;
             mqtt.connect(options);
             console.log(" 2 ----------------- SUCCESS!! CONNECTED!");
+
+                    document.getElementById("zero").style.display = "none";
+                    document.getElementById("one").style.display = "none";
+                    document.getElementById("two").style.display = "none";
+                    document.getElementById("three").style.display = "none";
+                    document.getElementById("four").style.display = "block";
+
         }
 
 
@@ -454,7 +498,7 @@
             el: '#app',
             data() {
                 return {
-                   
+
                 }
             },
             created() {
@@ -468,7 +512,7 @@
                 chartUpdate() {
                     slide(); // TODO: modify slide func
                 },
-               
+
                 //TODO: stop / pause button
                 // stop() {
                 //     clearInterval(pubLoop);
