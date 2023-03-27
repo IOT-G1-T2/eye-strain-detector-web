@@ -2615,7 +2615,7 @@ th {
 
 /* page left sidebar */
 .page-sidebar {
-  width: 240px;
+  width: 300px;
   background: #191f27;
   min-height: 100%;
   float: left;
