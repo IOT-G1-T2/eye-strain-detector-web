@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <!-- metas -->
+    <meta charset="utf-8">
+    <meta name="author" content="IOT-G1-T2" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="description" content="IOT-G1-T2: Eye Strain Detector" />
+
+    <!-- title  -->
+    <title>IOT-G1-T2</title>
+
+    <!-- favicon -->
+    <link rel="shortcut icon" href="img/logos/favicon.ico">
+
+
+    <!-- MQTT Functionality -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/paho-mqtt/1.0.1/mqttws31.min.js"
+        type="text/javascript"></script>
+    <script type="text/javascript" language="javascript">
+
+        // SETUP HERE
+        var mqtt;
+        const reconnectTimeout = 2000;
+        const port = 8000
+        const host = 'broker.hivemq.com';
+        const topic = 'eye-strain-detector-1';
+
+        // FUNCTIONS ------------------------------------------------------------------
+        function onConnect() { //subscribe
+            console.log(" 3 ------ SUBSCRIBING TO TOPIC...");
+            mqtt.subscribe(topic);
+            console.log(" 4 ------ SUCCESS!! SUBSCRIBED TO TOPIC: " + topic);
+        }
+
+        function onConnectionLost() {
+            console.log("------ DISCONNECTED...");
+            connected_flag = 0;
+        }
+
+
+        function onMessageArrived(msg) {
+            out_msg = msg.payloadString + " : ";
+            out_msg = out_msg + msg.destinationName;
+            console.log("------ MESSAGE ARRIVED: " + out_msg);
+        }
+
+        function onFailure(message) {
+            console.log(" X ----------------- CONNECTION FAILED!");
+            setTimeout(MQTTconnect, reconnectTimeout);
+        }
+
+        function MQTTconnect() {
+            console.log(" 1 ----------------- CONNECTING TO " + host + ":" + port + "...");
+
+            // randomize clientId
+            var clientId = 'subscriber-clients';
+            console.log("--- CLIENT ID: " + clientId);
+
+            // set host and port
+            mqtt = new Paho.MQTT.Client(host, port, clientId);
+
+            // can add username, password etc.
+            var options = {
+                timeout: 3,
+                onSuccess: onConnect,
+                onFailure: onFailure,
+            };
+            mqtt.onMessageArrived = onMessageArrived
+            mqtt.connect(options);
+            console.log(" 2 ----------------- SUCCESS!! CONNECTED!");
+        }
+    </script>
+
+
+    <!-- Vue.js -->
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+
+    <!-- Chart.js -->
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.3/Chart.bundle.js"></script>
+
+
+</head>
+
+<body>
+    <div id="app" style="height:100vh">
+
+
+        <button class="button-primary" @click="start()">start</button>
+        <button class="button-primary" @click="publish()">publish "Hello IOT World!"</button>
+
+
+    </div>
+
+
+
+    <!-- VUE.JS ------------------------------------------------------------------------------ -->
+    <script>
+        // Vue.js
+        var app = new Vue({
+            el: '#app',
+            data() {
+                return {
+
+                }
+            },
+            created() {
+                MQTTconnect()
+            },
+
+            mounted() {
+
+            },
+
+            methods: {
+                start() {
+                    MQTTconnect()
+                },
+                publish() {
+                    onPublish()
+                }
+
+            }
+        })
+
+    </script>
+
+</body>
+
+</html>

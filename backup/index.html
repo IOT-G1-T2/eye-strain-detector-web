@@ -29,7 +29,11 @@
     <!-- custom css -->
     <link rel="stylesheet" href="css/styles.css" />
     <link rel="stylesheet" href="style.css" />
+
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.4/css/all.css">
+
+    <!-- MQTT script -->
+    <script src="https://unpkg.com/mqtt/dist/mqtt.min.js"></script>
 
     <!-- Vue.js -->
     <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
@@ -37,13 +41,6 @@
     <!-- Chart.js -->
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.3/Chart.bundle.js"></script>
 
-    <!-- MQTT Functionality -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/paho-mqtt/1.0.1/mqttws31.min.js"
-        type="text/javascript"></script>
-    <script type="text/javascript" language="javascript">
-
-
-    </script>
 
 </head>
 
@@ -82,7 +79,7 @@
                                             <i class="fas fa-lock"></i><span>&nbsp;&nbsp;Host:&nbsp;</span>
                                         </div>
                                         <div class="col">
-                                            <code class="label label-success">host</code>
+                                            <code class="label label-success">{{ hostTitle }}</code>
                                         </div>
                                     </div>
                                 </a>
@@ -93,7 +90,7 @@
                                             <i class="fas fa-link"></i><span>&nbsp;&nbsp;Port No:&nbsp;</span>
                                         </div>
                                         <div class="col">
-                                            <code class="label label-success">port</code>
+                                            <code class="label label-success">{{ port }}</code>
                                         </div>
                                     </div>
                                 </a>
@@ -104,7 +101,7 @@
                                             <i class="fas fa-lock"></i><span>&nbsp;&nbsp;Topic:&nbsp;</span>
                                         </div>
                                         <div class="col">
-                                            <code class="label label-success">topic</code>
+                                            <code class="label label-success">{{ topic }}</code>
                                         </div>
                                     </div>
                                 </a>
@@ -117,7 +114,7 @@
                                             <span><i class="fas fa-pen-alt"></i></span>
                                         </div>
                                         <div class="col">
-                                            <code class="label label-info">pub</code>
+                                            <code class="label label-info">{{ publisher }}</code>
                                         </div>
                                     </div>
                                 </a>
@@ -128,7 +125,7 @@
                                             <span><i class="fas fa-book-reader"></i></span>
                                         </div>
                                         <div class="col">
-                                            <code class="label label-warning">sub</code>
+                                            <code class="label label-warning">{{ subscriber }}</code>
                                         </div>
                                     </div>
                                 </a>
@@ -154,13 +151,17 @@
                                     <div class="card-body">
                                         <div class="float-left">
                                             <span class="stats-number">You are not connected.</span>
+                                            <p class="stats-info">Status: 0</p>
                                         </div>
                                         <div class="float-right">
                                             <i class="fas fa-sad-tear stats-icon text-info"></i>
                                         </div>
-                                        <div class="clearfix"></div><br>
+                                        <div class="clearfix"></div>
+                                         <button class="button-primary" @click="start()">start</button>
                                     </div>
                                 </div>
+
+
                             </div>
                         </div>
 
@@ -178,6 +179,12 @@
                                             <i class="fas fa-thumbs-up stats-icon text-success"></i>
                                         </div>
                                         <div class="clearfix"></div>
+                                        <div class="progress mb-0 mt-3">
+                                            <div class="progress-bar bg-success" role="progressbar" aria-valuenow="58"
+                                                aria-valuemin="0" aria-valuemax="100" style="width: 58%;">
+                                                <span class="sr-only">58% Complete</span>
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
@@ -197,6 +204,12 @@
                                             <i class="fas fa-exclamation-circle stats-icon text-warning"></i>
                                         </div>
                                         <div class="clearfix"></div>
+                                        <div class="progress mb-0 mt-3">
+                                            <div class="progress-bar bg-success" role="progressbar" aria-valuenow="58"
+                                                aria-valuemin="0" aria-valuemax="100" style="width: 58%;">
+                                                <span class="sr-only">58% Complete</span>
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
@@ -216,6 +229,12 @@
                                             <i class="fas fa-eye stats-icon text-danger"></i>
                                         </div>
                                         <div class="clearfix"></div>
+                                        <div class="progress mb-0 mt-3">
+                                            <div class="progress-bar bg-success" role="progressbar" aria-valuenow="58"
+                                                aria-valuemin="0" aria-valuemax="100" style="width: 58%;">
+                                                <span class="sr-only">58% Complete</span>
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
@@ -223,19 +242,25 @@
 
 
 
-                        <div class="row">
+                        <div v-show="connected" class="row">
 
                             <div class="col-xl-4 col-lg-6 col-md-6">
                                 <div class="card card-white stats-widget">
                                     <div class="card-body">
                                         <div class="float-left">
-                                            <span class="stats-number" id="blink_rate_html">0</span>
+                                            <span class="stats-number">{{ blink_rate }}</span>
                                             <p class="stats-info">blinks per minute</p>
                                         </div>
                                         <div class="float-right">
                                             <i class="fas fa-dollar-sign text-primary stats-icon"></i>
                                         </div>
                                         <div class="clearfix"></div>
+                                        <div class="progress mb-0 mt-3">
+                                            <div class="progress-bar bg-primary" role="progressbar" aria-valuenow="60"
+                                                aria-valuemin="0" aria-valuemax="100" style="width: 60%;">
+                                                <span class="sr-only">60% Complete</span>
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
@@ -243,13 +268,19 @@
                                 <div class="card card-white stats-widget">
                                     <div class="card-body">
                                         <div class="float-left">
-                                            <span class="stats-number" id="total_blinks_html">0</span>
+                                            <span class="stats-number">{{ total_blinks }}</span>
                                             <p class="stats-info">blinks in total</p>
                                         </div>
                                         <div class="float-right">
                                             <i class="fas fa-download stats-icon text-danger"></i>
                                         </div>
                                         <div class="clearfix"></div>
+                                        <div class="progress mb-0 mt-3">
+                                            <div class="progress-bar bg-danger" role="progressbar" aria-valuenow="20"
+                                                aria-valuemin="0" aria-valuemax="100" style="width: 20%;">
+                                                <span class="sr-only">20% Complete</span>
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
@@ -257,13 +288,19 @@
                                 <div class="card card-white stats-widget">
                                     <div class="card-body">
                                         <div class="float-left">
-                                            <span class="stats-number" id="minutes_html">0</span>
+                                            <span class="stats-number">{{ total_minutes }}</span>
                                             <p class="stats-info">minutes</p>
                                         </div>
                                         <div class="float-right">
                                             <i class="fas fa-user-plus stats-icon text-warning"></i>
                                         </div>
                                         <div class="clearfix"></div>
+                                        <div class="progress mb-0 mt-3">
+                                            <div class="progress-bar bg-warning" role="progressbar" aria-valuenow="40"
+                                                aria-valuemin="0" aria-valuemax="100" style="width: 40%;">
+                                                <span class="sr-only">40% Complete</span>
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
@@ -289,15 +326,19 @@
                             <div class="col-lg-4 col-md-12">
                                 <div class="card card-white">
                                     <div class="card-heading clearfix">
-                                        <h4 class="card-title">real time data</h4>
+                                        <h4 class="card-title">Features</h4>
                                     </div>
                                     <div class="card-body">
                                         <div class="project-stats">
                                             <ul class="list-unstyled">
-                                                <li>Payload: <span id="payload_verbose"
-                                                        class="label label-success float-right">[payload]</span></li>
-                                                <li>Status: <span id="status_html"
-                                                        class="label label-danger float-right"></span></li>
+                                                <li>Blink Rate<span
+                                                        class="label label-success float-right">Finished</span></li>
+                                                <li>Break Reminder<span
+                                                        class="label label-warning float-right">Pending</span></li>
+                                                <li>Hello<span class="label label-success float-right">Finished</span>
+                                                </li>
+                                                <li>Software UI<span class="label label-danger float-right">Not
+                                                        Done</span></li>
                                             </ul>
                                         </div>
                                     </div>
@@ -373,102 +414,122 @@
 
     <!-- VUE.JS ------------------------------------------------------------------------------ -->
     <script>
-
-        // SETUP HERE
-        var mqtt;
-        const reconnectTimeout = 2000;
-        const port = 8000
-        const host = 'broker.hivemq.com';
-        const topic = 'eye-strain-detector-1';
-
-        var status = '0';
-
-        // FUNCTIONS ------------------------------------------------------------------
-
-        function onConnect() { //subscribe
-            console.log(" 3 ------ SUBSCRIBING TO TOPIC...");
-            mqtt.subscribe(topic);
-            console.log(" 4 ------ SUCCESS!! SUBSCRIBED TO TOPIC: " + topic);
-        }
-
-        function onConnectionLost() {
-            console.log("------ DISCONNECTED...");
-            connected_flag = 0;
-        }
-
-        function onMessageArrived(msg) {
-            console.log("------ PAYLOAD!");
-            out_msg = msg.payloadString + " : ";
-            out_msg = out_msg + msg.destinationName;
-            payloadS = msg.payloadString;
-            console.log("------ MESSAGE ARRIVED: " + out_msg);
-
-            document.getElementById("payload_verbose").innerHTML = payloadS;
-            console.log("------ HTML UPDATED.");
-
-            data = payloadS.split("-");
-            pblinks = parseInt(data[0]);
-            pminutes = parseInt(data[1]);
-            pblinkrate = parseInt(data[2]);
-            pstatus = parseInt(data[3]);
-
-            status = toString(pstatus);
-
-            document.getElementById("total_blinks_html").innerHTML = pblinks;
-            document.getElementById("minutes_html").innerHTML = pminutes;
-            document.getElementById("blink_rate_html").innerHTML = pblinkrate;
-            document.getElementById("status_html").innerHTML = pstatus;
-            console.log("blinks: " + pblinks + " minutes: " + pminutes + " blink rate: " + pblinkrate + " status: " + pstatus)
-        }
-
-
-        function onFailure(message) {
-            console.log(" X ----------------- CONNECTION FAILED!");
-            setTimeout(MQTTconnect, reconnectTimeout);
-        }
-
-        function MQTTconnect() {
-            console.log(" 1 ----------------- CONNECTING TO " + host + ":" + port + "...");
-
-            // randomize clientId
-            var clientId = 'subscriber-client';
-            console.log("--- CLIENT ID: " + clientId);
-
-            // set host and port
-            mqtt = new Paho.MQTT.Client(host, port, clientId);
-
-            // can add username, password etc.
-            var options = {
-                timeout: 3,
-                onSuccess: onConnect,
-                onFailure: onFailure,
-            };
-            mqtt.onMessageArrived = onMessageArrived;
-            mqtt.connect(options);
-            console.log(" 2 ----------------- SUCCESS!! CONNECTED!");
-        }
-
-
         // Vue.js
         var app = new Vue({
             el: '#app',
             data() {
                 return {
-                   
+                    // mqtt things
+                    brokerUrl: 'b9077f2e76454af2ba6671215f63b057.s2.eu.hivemq.cloud',
+                    topic: 'eye-strain-detector',
+
+                    // usernames
+                    pub: '',
+                    p_password: 'eye-oh-tea',
+
+                    sub: '',
+                    s_password: 'eye-oh-tea',
+
+                    // status
+                    zero: false,
+                    one: false,
+                    two: false,
+                    three: false,
+                    connected: false,
+
+                    // payload
+                    total_blinks: 0,
+                    total_minutes: 0,
+                    blink_rate: 0,
+
+                    // for chart.js
+                    dp_blink_rate: 0,
+                    dp_total_minutes: 0,
                 }
             },
             created() {
-                MQTTconnect();
+
+                // if connected to mqtt successfully
+                // set status as 1 2 or 3
+
+                // replace with mqtt data
+                this.status = 4;
+
+                switch (this.status) {
+                    case 1:
+                        this.zero = false
+                        this.one = true // 1
+                        this.two = false
+                        this.three = false
+                        break;
+                    case 2:
+                        this.zero = false
+                        this.one = false
+                        this.two = true // 2
+                        this.three = false
+                        break;
+                    case 3:
+                        this.zero = false
+                        this.one = false
+                        this.two = false
+                        this.three = true // 3
+                        break;
+                    default: // any number / null
+                        this.zero = true
+                        this.one = false
+                        this.two = false
+                        this.three = false
+                }
+
+                // payload: 
+                this.total_blinks = 30
+                this.total_minutes = 2
+                this.blink_rate = 15
             },
 
             mounted() {
+                // MQTT
+                // this.pub = mqtt.connect(this.brokerUrl); //no need to publish for now
+                this.sub = mqtt.connect(this.brokerUrl);
+                this.sub.subscribe(this.topic);
             },
 
             methods: {
-                chartUpdate() {
-                    slide(); // TODO: modify slide func
-                },
-               
+                start() {
+                    //click start button
+                    this.sub = mqtt.connect(this.brokerUrl);
+                    this.sub.subscribe(this.topic);
+                    this.sub.on('message', function (topic, message) {
+
+                        console(topic,message);
+                        // message = '30-2-15-1' // TODO: mockup only, remove on prod
+
+                        // payload_data = JSON.parse(message.toString())
+                        // var data = payload_data.split("-");
+
+                        // //splice and parse payload
+                        // p_blinks = parseInt(data[0]);
+                        // p_minutes = parseInt(data[1]);
+                        // p_blinkrate = parseInt(data[2]);
+                        // this.status = parseInt(data[3]);
+
+                        // // for chart.js
+                        // app.dp_blink_rate = p_blinkrate;
+                        // app.dp_total_minutes = p_minutes;
+                        slide(); // TODO: modify slide func
+                    });
+                    // function send() {
+                    //     pubLoop = setInterval(() => {
+                    //         app.psn++
+                    //         pubTime = Date.now().toString();
+                    //         app.pubAmp = fluctuation(app.pubAmp)
+                    //         app.pubTem = fluctuation(app.pubTem)
+                    //         app.pubHum = fluctuation(app.pubHum)
+                    //     }, 1000); // 1 second
+                    // };
+                    // setTimeout(send, 1000); // wait for the sub.on done
+
+                }
                 //TODO: stop / pause button
                 // stop() {
                 //     clearInterval(pubLoop);
@@ -488,8 +549,8 @@
                 //     resetChart();
                 // }
 
-            }
 
+            }
         })
 
         // CHART.JS ------------------------------------------------------------------------------

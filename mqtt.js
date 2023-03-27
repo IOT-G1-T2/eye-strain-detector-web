@@ -1,27 +1,14 @@
-// var mqtt    = require('mqtt');
-// var client  = mqtt.connect('mqtt://test.mosquitto.org');
-
-// client.subscribe('presence');
-// client.publish('presence', 'Hello mqtt');
-
-// client.on('message', function (topic, message) {
-//   // message is Buffer
-//   console.log(message.toString());
-// });
-
-// client.end();
-// 
-
 var mqtt = require('mqtt');
 
-// your credentials
+// credentials
 const options = {
-  username: 'iot-eye-subscriber', //subscriber
-  password: 'eye00tea'
+  username: 'iot-eye-sub', //subscriber
+  password: 'eye-oh-tea',
+  port:8883
 };
 
 // connect to your cluster, insert your host name and port
-const client = mqtt.connect('tls://b9077f2e76454af2ba6671215f63b057.s2.eu.hivemq.cloud:8883', options);
+const client = connect('tls://b9077f2e76454af2ba6671215f63b057.s2.eu.hivemq.cloud', options);
 
 // prints a received message
 client.on('message', function(topic, message) {
@@ -39,7 +26,7 @@ client.on('error', (error) => {
 });
 
 // subscribe
-client.subscribe('iot-cam-data');
+client.subscribe('eye-strain-detector');
 // client.publish('messages', 'Hello, this message was received!');
 
 client.end();
