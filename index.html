@@ -68,54 +68,57 @@
                 <div class="page-sidebar-inner">
                     <div class="page-sidebar-menu">
                         <ul class="accordion-menu">
-                            <li><a id="four" class="btn btn-black sidelink"> <span class="float-left"><i
-                                class="fas fa-link"></i> </span>You are connected!</span></a></li>
+
                             <li><a class="btn btn-black sidelink" href="www.github.com"> <span class="float-left"><i
                                             class="fab fa-github"></i> </span>Github Repo</span></a></li>
                             <li><a class="btn btn-story sidelink" href="www.github.com"> <span class="float-left"><i
                                             class="fas fa-video"></i> </span>The Story Video</span></a></li>
                             <li><a class="btn btn-blog sidelink" href="www.github.com"> <span class="float-left"><i
-                                            class="fas fa-sticky-note"></i> </span>The Blog</span></a></li>
+                                            class="fas fa-blog"></i> </span>The Blog</span></a></li>
                             <li>
 
-                                <a href="/">
-                                    <div class="row">
-                                        <div class="col">
-                                            <span>&nbsp;&nbsp;Host:&nbsp;</span>
-                                        </div>
-                                        <div class="col">
-                                            <code id="host" class="label label-success float-right">[host-url]</code>
-                                        </div>
+                                <div class="row information">
+                                    <span class="side-info center" id="four">You are connected!</span>
+                                </div>
+
+                                <div class="row information">
+                                    <div class="col-2">
+                                        <span class="side-info">&nbsp;&nbsp;Host</span>
                                     </div>
-                                </a>
-
-                                <a href="/">
-                                    <div class="row">
-                                        <div class="col">
-                                           <span>&nbsp;&nbsp;Port No:&nbsp;</span>
-                                        </div>
-                                        <div class="col">
-                                            <code id="port" class="label label-success float-right">[port]</code>
-                                        </div>
+                                    <div class="col-10">
+                                        <code id="host" class="side-label label">[host-url]</code>
                                     </div>
-                                </a>
+                                </div>
 
-                                <a href="/">
-                                    <div class="row">
-                                        <div class="col">
-                                           <span>&nbsp;&nbsp;Topic:&nbsp;</span>
-                                        </div>
-                                        <div class="col">
-                                            <code id="topic" class="label label-success float-right">[topic-name]</code>
-                                        </div>
+                                <div class="row information">
+                                    <div class="col-2">
+                                        <span class="side-info">&nbsp;&nbsp;Port:</span>
                                     </div>
-                                </a>
+                                    <div class="col-10">
+                                        <code id="port" class="side-label label">[port]</code>
+                                    </div>
+                                </div>
 
-                                <br><br>
-
-
+                                <div class="row information">
+                                    <div class="col-2">
+                                        <span class="side-info">&nbsp;&nbsp;Topic:</span>
+                                    </div>
+                                    <div class="col-10">
+                                        <code id="topic" class="side-label label">[topic-name]</code>
+                                    </div>
+                                </div>
                             </li>
+
+                            <li><br>
+                                <a href="https://c4sg.sg/"> <div class="row information">
+                                    <span class="side-info center">This project is sponsored by:</span>
+                                </div>
+                                   <img class="sponsor" src="img/c4sg.png">
+                            </a>
+                            </li>
+
                         </ul>
+                        
                     </div>
                 </div>
             </div>
@@ -212,7 +215,7 @@
                                             <p class="stats-info">blinks per minute</p>
                                         </div>
                                         <div class="float-right">
-                                            <i class="fas fa-dollar-sign text-primary stats-icon"></i>
+                                            <i class="fas fa-eye text-primary stats-icon"></i>
                                         </div>
                                         <div class="clearfix"></div>
                                     </div>
@@ -226,7 +229,7 @@
                                             <p class="stats-info">blinks in total</p>
                                         </div>
                                         <div class="float-right">
-                                            <i class="fas fa-download stats-icon text-danger"></i>
+                                            <i class="fas fa-eye stats-icon text-danger"></i><i class="fas fa-plus text-danger"></i>
                                         </div>
                                         <div class="clearfix"></div>
                                     </div>
@@ -240,7 +243,7 @@
                                             <p class="stats-info">minutes</p>
                                         </div>
                                         <div class="float-right">
-                                            <i class="fas fa-user-plus stats-icon text-warning"></i>
+                                            <i class="fas fa-clock stats-icon text-warning"></i>
                                         </div>
                                         <div class="clearfix"></div>
                                     </div>
@@ -273,10 +276,8 @@
                                     <div class="card-body">
                                         <div class="project-stats">
                                             <ul class="list-unstyled">
-                                                <li>Payload: <span id="payload_verbose"
-                                                        class="label label-success float-right">[payload]</span></li>
-                                                <li>Status: <span id="status_html"
-                                                        class="label label-danger float-right"></span></li>
+                                                <li>Payload: <span id="payload_verbose" class="label label-success float-right">[payload]</span></li>
+                                                <li>Status: <span id="status_html" class="label label-danger float-right">[status]</span></li>
                                             </ul>
                                         </div>
                                     </div>
@@ -288,7 +289,7 @@
                     </div>
                     <!-- end page main wrapper -->
                     <div class="page-footer">
-                        <p>Copyright &copy; 2023 IOT-G1-T2. Sponsored by [Organization Here].</p>
+                        <p>Copyright &copy; 2023 IOT-G1-T2.</p>
                     </div>
                 </div>
             </div>
@@ -471,11 +472,11 @@
             mqtt.connect(options);
             console.log(" 2 ----------------- SUCCESS!! CONNECTED!");
 
-                    document.getElementById("zero").style.display = "none";
-                    document.getElementById("one").style.display = "none";
-                    document.getElementById("two").style.display = "none";
-                    document.getElementById("three").style.display = "none";
-                    document.getElementById("four").style.display = "block";
+            document.getElementById("zero").style.display = "none";
+            document.getElementById("one").style.display = "none";
+            document.getElementById("two").style.display = "none";
+            document.getElementById("three").style.display = "none";
+            document.getElementById("four").style.display = "block";
 
         }
 

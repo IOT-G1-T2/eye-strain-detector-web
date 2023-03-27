@@ -65,3 +65,24 @@ background-color: rgb(235, 92, 92);
 .chart-padding {
     padding-bottom: 10px;
 }
+
+.information {
+    padding-top:10px;
+    padding-bottom:10px;
+}
+
+.side-label {
+    background-color:mediumseagreen;
+    border-radius: 3px;
+    float:right;
+}
+
+.side-info {
+    color: white;
+    padding-right: 20px;
+}
+
+.sponsor {
+    max-height: 45px;
+    padding-left: 20px;
+}
